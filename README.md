@@ -1,3 +1,57 @@
+# HLTB for Steam - store card build
+
+This repository publishes a patched build of
+[jcdoll/hltb-millennium-plugin](https://github.com/jcdoll/hltb-millennium-plugin), a
+[Millennium](https://steambrew.app/) plugin that shows [How Long To Beat](https://howlongtobeat.com/)
+completion times in the Steam library and on store pages.
+
+## What this build changes
+
+Upstream inserts the store card after `#achievement_block`. On the store pages Steam serves now, that
+module is the points shop block, roughly three screens below the fold: the card renders correctly but
+nobody ever scrolls to it, which reads as "the plugin only works in the library".
+
+This build places the card under the game header instead.
+
+| Position | Behaviour |
+|----------|-----------|
+| `hero` (default) | Under the header facts (release date / developer / publisher / tags), above the media row |
+| `top`, `achievements`, `details`, `bottom` | The upstream sidebar positions, unchanged |
+
+Placement is retried for a minute while the page hydrates, because the store re-renders during that
+window. Themes that style the card (`#hltb-store-data`) keep working: position and width live on a
+separate lane element.
+
+Plugin version `2.2.1`. The change is proposed upstream in
+[jcdoll/hltb-millennium-plugin#18](https://github.com/jcdoll/hltb-millennium-plugin/pull/18).
+
+## Install
+
+A ready-to-use bundle sits in `release/hltb-for-millennium/`.
+
+1. Quit Steam.
+2. Copy `release/hltb-for-millennium` into `<Steam>/millennium/plugins/`, replacing the existing
+   `hltb-for-millennium` folder. Default path on Windows:
+   `C:\Program Files (x86)\Steam\millennium\plugins\`.
+3. Start Steam and make sure the plugin is enabled under `Steam > Millennium > Plugins`.
+4. Open any game page in the store.
+
+The Lua backend changed, so a full Steam restart is required; reloading the page with F5 is not
+enough.
+
+Building from source instead:
+
+```bash
+npm install
+npm run build
+```
+
+Then copy `plugin.json`, `backend/` and `.millennium/Dist/` into the plugin folder.
+
+## Upstream documentation
+
+Everything below documents the plugin itself and comes from the upstream repository.
+
 # HLTB for Steam
 
 A [Millennium](https://steambrew.app/) plugin that displays [How Long To Beat](https://howlongtobeat.com/) completion times on game pages in the Steam library and store.
