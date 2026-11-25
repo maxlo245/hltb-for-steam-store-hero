@@ -25,6 +25,9 @@ separate lane element.
 Plugin version `2.2.1`. The change is proposed upstream in
 [jcdoll/hltb-millennium-plugin#18](https://github.com/jcdoll/hltb-millennium-plugin/pull/18).
 
+The workflows under `.github/workflows` are disabled in this repository: GitHub Actions cannot run on
+this account. The same commit is green in the upstream pull request.
+
 ## Install
 
 A ready-to-use bundle sits in `release/hltb-for-millennium/`.
